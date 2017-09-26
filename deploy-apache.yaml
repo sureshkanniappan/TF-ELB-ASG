@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+  # Apache Installation
+  - name: Install Apache
+    shell: yum install httpd tomcat -y
+  - debug: var=output
+  - name: Appending virtualhost into httpd.conf file
+    shell: cat virtual >> /etc/httpd/conf/httpd.conf
+  - name: Appending AJP configuration in conf/server.xml file
+    shell: echo "<Connector  protocol=\"AJP/1.3\"  URIEncoding=\"UTF-8\"  port=\"8080\" />" >> /opt/tomcat/conf/server.xml
+  - name: Start the apache service
+    shell: service httpd start
+    register: output
+  - name: Start the tomcat service
+    shell: service tomcat start
+    register: output

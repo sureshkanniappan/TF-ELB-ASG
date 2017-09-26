@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+        DocumentRoot /home/www/tfelbasg.com
+        ServerName  tfelbasg.com
+
+        ProxyPass               /     ajp://localhost:8080/ retry=0 ttl=600
+        ProxyPassReverse        /     ajp://localhost:8080/
+
+        ProxyPass               /*     ajp://localhost:8080/* retry=0 ttl=600
+        ProxyPassReverse        /*     ajp://localhost:8080/*
+</VirtualHost>
